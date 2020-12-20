@@ -3,6 +3,7 @@ let result = 0;
 let tempString = "";
 let strNumber = "";
 let clicked = false;
+let keys = 1;
 
 const screen = document.getElementById("screen");
 const buttons = document.getElementsByClassName("actionBtn");
@@ -11,46 +12,53 @@ const equals = document.querySelector(".equals");
 const clear = document.getElementById("clear");
 const operatorButtons = document.getElementsByClassName("operator-btn");
 
+// window.addEventListener("keydown", down, false);
+
 Array.from(buttons).forEach((button) => {
   button.addEventListener("click", () => {
-    if (clicked) {
-      screen.textContent = "";
-      numbers = [];
-      clicked = false;
-    }
+    if (keys <= 12) {
+      if (clicked) {
+        screen.textContent = "";
+        numbers = [];
+        clicked = false;
+      }
 
-    if (screen.textContent == "0") {
-      screen.textContent = "";
+      if (screen.textContent == "0") {
+        screen.textContent = "";
+      }
+      screen.textContent = screen.textContent + button.value;
+      numbers.push(button.value);
+      keys++;
     }
-    screen.textContent = screen.textContent + button.value;
-    numbers.push(button.value);
   });
 });
 
 Array.from(operatorButtons).forEach((button) => {
   button.addEventListener("click", () => {
-    strNumber = numbers.join("");
-    if (
-      strNumber.includes("+") ||
-      strNumber.includes("-") ||
-      strNumber.includes("*") ||
-      strNumber.includes("/") ||
-      strNumber.includes("^") ||
-      strNumber.includes("%")
-    ) {
-      console.log("asjk");
-      result = parseInput(numbers.join(""));
+    if (keys <= 12 && !clicked) {
+      strNumber = numbers.join("");
+      if (
+        strNumber.includes("+") ||
+        strNumber.includes("-") ||
+        strNumber.includes("*") ||
+        strNumber.includes("/") ||
+        strNumber.includes("^") ||
+        strNumber.includes("%")
+      ) {
+        result = parseInput(numbers.join(""));
 
-      screen.textContent = result;
-      numbers = [];
-      numbers.push(result);
-    }
+        screen.textContent = result;
+        numbers = [];
+        numbers.push(result);
+      }
 
-    if (screen.textContent == "0") {
-      screen.textContent = "";
+      if (screen.textContent == "0") {
+        screen.textContent = "";
+      }
+      screen.textContent = screen.textContent + button.value;
+      numbers.push(button.value);
+      keys++;
     }
-    screen.textContent = screen.textContent + button.value;
-    numbers.push(button.value);
   });
 });
 
@@ -61,12 +69,14 @@ backspace.addEventListener("click", () => {
   if (screen.textContent === "") {
     screen.textContent = "0";
   }
+  keys--;
 });
 
 equals.addEventListener("click", () => {
   result = parseInput(numbers.join(""));
 
   screen.textContent = result;
+  keys = Array.from(result).length;
   numbers = [];
   numbers.push(result);
   clicked = true;
@@ -75,6 +85,7 @@ equals.addEventListener("click", () => {
 clear.addEventListener("click", () => {
   screen.textContent = "0";
   numbers = [];
+  keys = 1;
 });
 
 function parseInput(str) {
@@ -119,7 +130,10 @@ function div(str) {
   if (substr[1] == "0") {
     return "Invalid";
   }
-  return Number(substr[0]) / Number(substr[1]);
+  return (
+    Math.round((Number(substr[0]) / Number(substr[1]) + Number.EPSILON) * 100) /
+    100
+  );
 }
 
 function percent(str) {
