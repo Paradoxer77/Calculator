@@ -9,7 +9,7 @@ th {
   border-collapse: collapse;
 }
 
-.screen {
+#screen {
   width: 398px;
   height: 100px;
   background-color: white;
