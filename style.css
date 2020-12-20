@@ -10,6 +10,9 @@ th {
 }
 
 #screen {
+  display: flex;
+  justify-content: end;
+  align-items: center;
   width: 398px;
   height: 100px;
   background-color: white;
@@ -19,9 +22,7 @@ th {
   border-top-right-radius: 10px;
   margin: auto;
   font-family: monospace;
-  font-size: 7em;
-  vertical-align: middle;
-  text-align: right;
+  font-size: 4em;
 }
 
 .btn {

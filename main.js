@@ -22,6 +22,9 @@ backspace.addEventListener("click", () => {
   tempString = screen.textContent.substring(0, screen.textContent.length - 1);
   screen.textContent = tempString;
   numbers.pop();
+  if (screen.textContent === "") {
+    screen.textContent = "0";
+  }
 });
 
 equals.addEventListener("click", () => {
@@ -30,6 +33,11 @@ equals.addEventListener("click", () => {
   screen.textContent = result;
   numbers = [];
   numbers.push(result);
+});
+
+clear.addEventListener("click", () => {
+  screen.textContent = "0";
+  numbers = [];
 });
 
 function parseInput(str) {
@@ -44,6 +52,12 @@ function parseInput(str) {
     return output;
   } else if (str.includes("/")) {
     output = div(str);
+    return output;
+  } else if (str.includes("%")) {
+    output = percent(str);
+    return output;
+  } else if (str.includes("^")) {
+    output = power(str);
     return output;
   }
 }
@@ -69,4 +83,14 @@ function div(str) {
     return "Invalid";
   }
   return Number(substr[0]) / Number(substr[1]);
+}
+
+function percent(str) {
+  substr = str.split("%");
+  return Number(substr[0]) / 100;
+}
+
+function power(str) {
+  substr = str.split("^");
+  return Math.pow(Number(substr[0]), Number(substr[1]));
 }
