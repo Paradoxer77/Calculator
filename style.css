@@ -1,0 +1,56 @@
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+td,
+tr,
+th {
+  margin: 0;
+  border-collapse: collapse;
+}
+
+.screen {
+  width: 398px;
+  height: 100px;
+  background-color: white;
+  border: 1px solid #33393d;
+  border-bottom: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: auto;
+  font-family: monospace;
+  font-size: 7em;
+  vertical-align: middle;
+  text-align: right;
+}
+
+.btn {
+  background-color: #1e2326;
+  color: white;
+  font-size: 1.5em;
+  border: 1px solid #33393d;
+  margin: 0;
+  width: 100px;
+  height: 90px;
+}
+
+.operator-btn {
+  background-color: #5e4bb6;
+}
+
+.equals {
+  background-color: #fcc00d;
+}
+
+.btn:hover {
+  cursor: pointer;
+  transform: scale(1.06);
+}
+
+.btn-left {
+  border-bottom-left-radius: 10px;
+}
+
+.btn-right {
+  border-bottom-right-radius: 10px;
+}
