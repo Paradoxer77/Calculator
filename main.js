@@ -1,15 +1,51 @@
 let numbers = [];
 let result = 0;
 let tempString = "";
+let strNumber = "";
+let clicked = false;
 
 const screen = document.getElementById("screen");
 const buttons = document.getElementsByClassName("actionBtn");
 const backspace = document.getElementById("backspace");
 const equals = document.querySelector(".equals");
 const clear = document.getElementById("clear");
+const operatorButtons = document.getElementsByClassName("operator-btn");
 
 Array.from(buttons).forEach((button) => {
   button.addEventListener("click", () => {
+    if (clicked) {
+      screen.textContent = "";
+      numbers = [];
+      clicked = false;
+    }
+
+    if (screen.textContent == "0") {
+      screen.textContent = "";
+    }
+    screen.textContent = screen.textContent + button.value;
+    numbers.push(button.value);
+  });
+});
+
+Array.from(operatorButtons).forEach((button) => {
+  button.addEventListener("click", () => {
+    strNumber = numbers.join("");
+    if (
+      strNumber.includes("+") ||
+      strNumber.includes("-") ||
+      strNumber.includes("*") ||
+      strNumber.includes("/") ||
+      strNumber.includes("^") ||
+      strNumber.includes("%")
+    ) {
+      console.log("asjk");
+      result = parseInput(numbers.join(""));
+
+      screen.textContent = result;
+      numbers = [];
+      numbers.push(result);
+    }
+
     if (screen.textContent == "0") {
       screen.textContent = "";
     }
@@ -33,6 +69,7 @@ equals.addEventListener("click", () => {
   screen.textContent = result;
   numbers = [];
   numbers.push(result);
+  clicked = true;
 });
 
 clear.addEventListener("click", () => {
